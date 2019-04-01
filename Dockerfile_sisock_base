@@ -1,0 +1,25 @@
+# sisock OCS comms server
+# sisock server, serving data from OCS, specifically at first Lakeshore 372 or 240 data
+
+# Note: This didn't work, couldn't make spt3g successfully.
+# Use sisock base image
+FROM sisock:latest
+
+# Set the working directory to /app
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y cmake \
+    libboost-all-dev \
+    libflac-dev \
+    libnetcdf-dev \
+    libfftw3-dev \
+    libgsl0-dev \
+    tcl \
+    environment-modules \
+    python3-numpy
+
+# Copy the current directory contents into the container at /app
+#COPY thermometry_server.py /app/
+
+# Run app.py when the container launches
+#CMD ["python3", "thermometry_server.py"]
