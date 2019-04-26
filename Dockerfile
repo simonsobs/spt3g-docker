@@ -7,7 +7,8 @@ FROM ubuntu:18.04
 # Set the working directory to /root
 WORKDIR /root
 
-ENV TZ=America/New_York
+#ENV TZ=America/New_York
+ENV TZ=Etc/UTC
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
@@ -29,6 +30,14 @@ COPY . /root/
 
 RUN /bin/bash /root/spt3g-setup.sh
 RUN cat /root/bashrc >> ~/.bashrc
+
+# Setup environment, else it's not setup to import spt3g in container
+ENV SPT3G_SOFTWARE_PATH /root/spt3g_software
+ENV SPT3G_SOFTWARE_BUILD_PATH /root/spt3g_software/build
+
+ENV PATH="/root/spt3g_software/build/bin:${PATH}"
+ENV LD_LIBRARY_PATH="/root/spt3g_software/build/spt3g:${LD_LIBRARY_PATH}"
+ENV PYTHONPATH="/root/spt3g_software/build:${PYTHONPATH}"
 
 # Run app.py when the container launches
 #CMD ["python3", "thermometry_server.py"]
