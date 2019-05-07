@@ -1,0 +1,6 @@
+# spt3g-repo
+spt3g_software/
+
+# Makefile targets
+built.txt
+pulled.txt
