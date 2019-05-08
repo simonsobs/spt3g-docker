@@ -4,3 +4,4 @@ spt3g_software/
 # Makefile targets
 built.txt
 pulled.txt
+check_repo.txt

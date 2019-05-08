@@ -5,7 +5,9 @@ VERSION = $(shell cd spt3g_software; git rev-parse --short HEAD)
 all : spt3g_software/ check pulled.txt built.txt
 
 # test and push
-# should have a script test import spt3g in a temporary container, and if it passes pushes to registry/dockerhub
+push :
+	@echo $(NAME):$(VERSION)
+	$(shell ./test_image.py $(NAME) $(VERSION))
 
 # Build the docker image and tag with git hash and update latest
 built.txt : pulled.txt
