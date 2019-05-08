@@ -3,7 +3,7 @@
 import subprocess
 import sys
 
-check = subprocess.run(["docker run -it --rm {}:{} /usr/bin/python3 -c 'from spt3g import core'".format(sys.argv[1], sys.argv[2])], shell=True, capture_output=True)
+check = subprocess.run(["docker run -it --rm {}:{} /usr/bin/python3 -c 'from spt3g import core'".format(sys.argv[1], sys.argv[2])], shell=True)
 #fail = subprocess.run(["docker run -it --rm {}:{} /usr/bin/python3 -c 'from spt3g import core2'".format(sys.argv[1], sys.argv[2])], shell=True, capture_output=True)
 
 if check.returncode == 0:
