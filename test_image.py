@@ -1,11 +1,18 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 import subprocess
 import sys
+import docker
 
-check = subprocess.run(["docker run -it --rm {}:{} /usr/bin/python3 -c 'from spt3g import core'".format(sys.argv[1], sys.argv[2])], shell=True)
-#fail = subprocess.run(["docker run -it --rm {}:{} /usr/bin/python3 -c 'from spt3g import core2'".format(sys.argv[1], sys.argv[2])], shell=True, capture_output=True)
 
-if check.returncode == 0:
+client = docker.from_env()
+check = client.containers.run('{}:{}'.format(sys.argv[1], sys.argv[2]), '/usr/bin/python3 -c "from spt3g import core"', auto_remove=True)
+
+# valid import in container if returns empty string
+if check == b'':
+    tag = subprocess.run(["docker tag {}:{} {}:latest".format(sys.argv[1], sys.argv[2], sys.argv[1])], shell=True)
     push = subprocess.run(["docker push {}:{}".format(sys.argv[1], sys.argv[2])], shell=True)
+    print("push result: {}".format(push.stdout))
     push_latest = subprocess.run(["docker push {}:latest".format(sys.argv[1])], shell=True)
+else:
+    print("Import failed within docker image")

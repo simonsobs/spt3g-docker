@@ -9,10 +9,9 @@ pushed.txt : built.txt
 	/usr/bin/python3 ./test_image.py $(NAME) $(VERSION)
 	touch pushed.txt
 
-# Build the docker image and tag with git hash and update latest
+# Build the docker image
 built.txt : pulled.txt
 	docker build -t ${NAME}:$(VERSION) .
-	docker tag ${NAME}:$(VERSION) ${NAME}:latest
 	@echo `date` > built.txt
 
 # Clone the repo if we haven't already
@@ -37,6 +36,7 @@ clean :
 	rm -f pulled.txt
 	rm -f built.txt
 	rm -f check_repo.txt
+	rm -f pushed.txt
 	rm -rf spt3g_software/
 
 .PHONY : variables
