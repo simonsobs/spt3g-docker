@@ -2,12 +2,12 @@ NAME = grumpy.physics.yale.edu/spt3g
 VERSION = $(shell cd spt3g_software; git rev-parse --short HEAD)
 
 .PHONY : all
-all : spt3g_software/ check pulled.txt built.txt
+all : spt3g_software/ check pulled.txt built.txt pushed.txt
 
 # test and push
-push :
-	@echo $(NAME):$(VERSION)
-	$(shell ./test_image.py $(NAME) $(VERSION))
+pushed.txt : built.txt
+	/usr/bin/python3 ./test_image.py $(NAME) $(VERSION)
+	touch pushed.txt
 
 # Build the docker image and tag with git hash and update latest
 built.txt : pulled.txt
