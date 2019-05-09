@@ -4,15 +4,8 @@ VERSION = $(shell cd spt3g_software; git rev-parse --short HEAD)
 .PHONY : all
 all : spt3g_software/ check pulled.txt built.txt pushed.txt
 
-# test and push
-pushed.txt : built.txt
-	/usr/bin/python3 ./test_image.py $(NAME) $(VERSION)
-	touch pushed.txt
-
-# Build the docker image
-built.txt : pulled.txt
-	docker build -t ${NAME}:$(VERSION) .
-	@echo `date` > built.txt
+.PHONY : build
+build : spt3g_software/ check pulled.txt built.txt
 
 # Clone the repo if we haven't already
 spt3g_software/ :
@@ -30,6 +23,16 @@ check :
 pulled.txt : check_repo.txt
 	cd spt3g_software/; git pull origin master
 	@echo `date` > pulled.txt
+
+# Build the docker image
+built.txt : pulled.txt
+	docker build -t ${NAME}:$(VERSION) .
+	@echo `date` > built.txt
+
+# test and push
+pushed.txt : built.txt
+	/usr/bin/python3 ./test_image.py $(NAME) $(VERSION)
+	touch pushed.txt
 
 .PHONY : clean
 clean :
