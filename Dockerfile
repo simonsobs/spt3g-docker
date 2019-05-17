@@ -19,7 +19,8 @@ RUN apt-get update && apt-get install -y cmake \
     libgsl0-dev \
     python3 \
     python3-pip \
-    python3-numpy
+    python3-numpy \
+    git
 
 # Copy the current directory contents into the container at /root
 COPY spt3g-setup.sh /root
