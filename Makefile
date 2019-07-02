@@ -1,4 +1,4 @@
-NAME = grumpy.physics.yale.edu/spt3g
+NAME = simonsobs/spt3g
 VERSION = $(shell cd spt3g_software; git rev-parse --short HEAD)
 
 .PHONY : all
