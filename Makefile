@@ -26,6 +26,7 @@ pulled.txt : check_repo.txt
 
 # Build the docker image
 built.txt : pulled.txt
+	docker pull ubuntu:18.04
 	docker build -t ${NAME}:$(VERSION) .
 	@echo `date` > built.txt
 
