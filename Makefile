@@ -1,5 +1,5 @@
 NAME = simonsobs/spt3g
-VERSION = $(shell cd spt3g_software; git rev-parse --short HEAD)
+VERSION = $(shell cd spt3g_software; git describe --tags --always HEAD)
 
 .PHONY : all
 all : spt3g_software/ check pulled.txt built.txt pushed.txt
