@@ -2,7 +2,7 @@ NAME = simonsobs/spt3g
 VERSION = $(shell cd spt3g_software; git describe --tags --always HEAD)
 
 .PHONY : all
-all : spt3g_software/ check pulled.txt built.txt pushed.txt
+all : spt3g_software/ check pulled.txt built.txt pushed.txt pruned.txt
 
 .PHONY : build
 build : spt3g_software/ check pulled.txt built.txt
@@ -35,12 +35,17 @@ pushed.txt : built.txt
 	/usr/bin/python3 ./test_image.py $(NAME) $(VERSION)
 	touch pushed.txt
 
+pruned.txt : pushed.txt
+	docker rmi $(NAME):$(VERSION)
+	@echo `date` - removed $(NAME):$(VERSION) > pruned.txt
+
 .PHONY : clean
 clean :
 	rm -f pulled.txt
 	rm -f built.txt
 	rm -f check_repo.txt
 	rm -f pushed.txt
+	rm -f pruned.txt
 	rm -rf spt3g_software/
 
 .PHONY : variables
