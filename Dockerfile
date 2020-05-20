@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -y cmake \
     python3 \
     python3-pip \
     python3-numpy \
+    python3-scipy \
     git
 
 # Copy the current directory contents into the container at /app_lib
