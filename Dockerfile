@@ -19,9 +19,11 @@ RUN apt-get update && apt-get install -y cmake \
     libgsl0-dev \
     python3 \
     python3-pip \
-    python3-numpy \
-    python3-scipy \
     git
+
+# Install python dependencies
+COPY requirements.txt /app_lib
+RUN pip3 install -r /app_lib/requirements.txt
 
 # Copy the current directory contents into the container at /app_lib
 COPY spt3g-setup.sh /app_lib
