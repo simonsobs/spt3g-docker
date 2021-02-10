@@ -2,7 +2,7 @@
 # An image with an installation of spt3g
 
 # Use ubuntu base image
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 # Set the working directory to /app_lib
 WORKDIR /app_lib
