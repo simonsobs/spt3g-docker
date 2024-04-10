@@ -26,13 +26,13 @@ pulled.txt : check_repo.txt
 
 # Build the docker image
 built.txt : pulled.txt
-	docker pull ubuntu:20.04
+	docker pull ubuntu:22.04
 	docker build -t ${NAME}:$(VERSION) .
 	@echo `date` > built.txt
 
 # test and push
 pushed.txt : built.txt
-	/usr/bin/python3 ./test_image.py $(NAME) $(VERSION)
+	/usr/bin/python3 ./test_and_push_image.py $(NAME) $(VERSION)
 	touch pushed.txt
 
 pruned.txt : pushed.txt

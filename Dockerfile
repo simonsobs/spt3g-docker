@@ -2,7 +2,7 @@
 # An image with an installation of spt3g
 
 # Use ubuntu base image
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 # Set the working directory to /app_lib
 WORKDIR /app_lib
@@ -14,6 +14,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get update && apt-get install -y cmake \
     libboost-all-dev \
     libflac-dev \
+    libbz2-dev \
     libnetcdf-dev \
     libfftw3-dev \
     libgsl0-dev \
